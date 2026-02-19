@@ -1,0 +1,204 @@
+:root {
+      --bg-gradient-start: #4facfe;
+      --bg-gradient-end: #00f2fe;
+      --glass-bg: rgba(255, 255, 255, 0.15);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --text-color: #ffffff;
+      --primary-color: #ffffff;
+      --item-height: 100px;
+}
+
+* {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+}
+
+body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--text-color);
+      overflow: hidden;
+}
+
+.container {
+      background: var(--glass-bg);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid var(--glass-border);
+      border-radius: 40px;
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 420px;
+      height: 600px;
+      justify-content: space-evenly;
+      transition: all 0.5s ease;
+}
+
+.time-picker {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 300px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+}
+
+.picker-column {
+      height: 100%;
+      width: 100px;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      z-index: 2;
+      padding: calc(var(--item-height)) 0;
+}
+
+.picker-column::-webkit-scrollbar {
+      display: none;
+}
+
+.picker-item {
+      height: var(--item-height);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3.5rem;
+      font-weight: 200;
+      scroll-snap-align: center;
+      color: rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+}
+
+.picker-separator {
+      font-size: 3rem;
+      margin: 0 15px;
+      padding-bottom: 10px;
+      z-index: 2;
+      font-weight: 200;
+      opacity: 0.8;
+}
+
+.picker-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0) 70%, rgba(255, 255, 255, 0) 100%);
+      z-index: 3;
+}
+
+.picker-overlay::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: var(--item-height);
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.05);
+      pointer-events: none;
+}
+
+.picker-item.active {
+      color: #ffffff;
+      transform: scale(1.1);
+      font-weight: 400;
+}
+
+.countdown-display {
+      font-size: 5.5rem;
+      font-weight: 200;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      letter-spacing: -3px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 300px;
+}
+
+.controls {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1rem;
+}
+
+.btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: var(--primary-color);
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      backdrop-filter: blur(5px);
+}
+
+.btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-3px) scale(1.05);
+      border-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+      transform: translateY(0) scale(0.95);
+}
+
+.btn.primary {
+      width: 88px;
+      height: 88px;
+      border-width: 2px;
+      background: rgba(255, 255, 255, 0.2);
+}
+
+.btn.primary svg {
+      width: 36px;
+      height: 36px;
+      fill: white;
+}
+
+.hidden {
+      display: none !important;
+}
+
+@keyframes breathe {
+      0% {
+                transform: scale(1);
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+      }
+      50% {
+                transform: scale(1.03);
+                text-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+      }
+      100% {
+                transform: scale(1);
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+      }
+}
+
+.running .countdown-display {
+      animation: breathe 5s infinite ease-in-out;
+}
